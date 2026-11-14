@@ -1,0 +1,9 @@
+google-cloud-bigquery>=3.20
+pandas>=2.0
+pyarrow>=14
+db-dtypes>=1.2
+requests>=2.31
+# tests (run offline, no Google Cloud account needed)
+pytest>=8.0
+duckdb==2.0.0
+sqlglot==30.31.0
