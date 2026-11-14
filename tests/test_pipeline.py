@@ -1,6 +1,4 @@
 # 🧪 test_pipeline.py — full pipeline end to end: 92 days fake GA4 data + fake FX API, DuckDB lo
-import shutil
-
 import pandas as pd
 import pytest
 from conftest import FakeHttp, fx_rows
@@ -11,8 +9,9 @@ from ga4 import pipeline, report
 
 @pytest.fixture
 def readme(tmp_path):
+    # 📄 test ki sontha chinna README — repo lo README unna lekapoyina tests pass avvali
     path = tmp_path / "README.md"
-    shutil.copy(pipeline.ROOT / "README.md", path)
+    path.write_text(f"# test\n\n{report.START}\n_placeholder_\n{report.END}\n", encoding="utf-8")
     return path
 
 
