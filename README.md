@@ -24,8 +24,78 @@ to report revenue in rupees, and feeds a **Looker Studio** dashboard.
 ## Results
 
 <!-- RESULTS:START -->
-_Run the pipeline (see "Run it" below) to fill this section with real numbers._
+_Last run: 15 Nov 2026 · 92 days · 2.94 GB scanned_
+
+| KPI (1 Nov 2020 – 31 Jan 2021) | Value |
+|---|---|
+| Users | 270,154 |
+| Sessions | 360,129 |
+| Purchases | 5,692 |
+| Revenue (USD) | $362,165 |
+| Revenue (INR, daily ECB rate) | ₹26,724,176 |
+| Session conversion rate | 1.35% |
+
+**Funnel** (users who reached each step)
+
+| Step | Users | % of viewers | % of previous step |
+|---|---|---|---|
+| View item | 61,252 | 100.0% | — |
+| Add to cart | 12,545 | 20.5% | 20.5% |
+| Begin checkout | 9,715 | 15.9% | 77.4% |
+| Purchase | 4,419 | 7.2% | 45.5% |
+
+Biggest drop-off: only **20.5%** of users move on to *Add to cart*.
+
+**Top first-touch traffic sources**
+
+| Source / medium | Users | Buyer rate |
+|---|---|---|
+| google / organic | 103,487 | 1.2% |
+| (direct) / (none) | 75,951 | 1.4% |
+| &lt;Other&gt; / &lt;Other&gt; | 51,037 | 1.0% |
+| &lt;Other&gt; / referral | 32,880 | 1.4% |
+| shop.googlemerchandisestore.com / referral | 26,065 | 2.2% |
+
+**Top products by revenue**
+
+| Product | Category | Units | Revenue (USD) |
+|---|---|---|---|
+| Google Zip Hoodie F/C | Apparel | 271 | $13,692 |
+| Google Men's Tech Fleece Grey | Apparel | 134 | $9,965 |
+| Google Badge Heavyweight Pullover Black | Apparel | 198 | $9,573 |
+| Super G Unisex Joggers | Shop by Brand | 289 | $8,947 |
+| Google Crewneck Sweatshirt Green | Apparel | 178 | $8,118 |
+
+**Data quality checks**
+
+| Check | Value | Status |
+|---|---|---|
+| fx: one rate per calendar day | 92 | PASS |
+| fx: no missing rates | 0 | PASS |
+| fx: rates look like USD→INR | 73.65 | PASS |
+| fx: no sudden day-to-day jump | 0.73 | PASS |
+| raw: every day has data | 92 | PASS |
+| raw: no events without a user | 0 | PASS |
+| raw: events without ga_session_id | 0 | PASS |
+| raw: duplicate events | 0 | PASS |
+| raw: purchases without revenue | 450 | WARN |
+| raw: purchases without transaction_id | 906 | WARN |
+| mart: funnel never grows step to step | [61252, 12545, 9715, 4419] | PASS |
+| mart: INR revenue present every day | 0 | PASS |
+| mart: KPI and INR marts cover the same days | 92 | PASS |
 <!-- RESULTS:END -->
+
+## What the data says
+
+- **The product page is the biggest leak.** Only 1 in 5 people who view a product add it to the cart (20.5%).
+  Checkout is weak too (45.5% of checkouts finish), but fixing product pages would move the most users.
+- **The store's own referral links bring the best buyers.** Users first acquired from
+  `shop.googlemerchandisestore.com` buy at 2.2%, almost double Google organic (1.2%), even though organic
+  brings four times more users.
+- **The catalog has a category mapping problem.** "Google Crewneck Sweatshirt Green" sits under *Apparel*, while
+  the Navy and Grey versions sit under *Uncategorized Items*, so category-level reports undercount Apparel.
+- **Channel numbers are directional.** About 4 in 10 users (41.6%) have their first source hidden by Google's
+  obfuscation (`<Other>` or `(data deleted)`), so channel comparisons show direction, not exact shares.
 
 ## How it works
 

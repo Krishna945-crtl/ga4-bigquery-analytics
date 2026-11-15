@@ -1,0 +1,14 @@
+check,value,status,detail
+fx: one rate per calendar day,92,PASS,expected 92 days
+fx: no missing rates,0,PASS,a missing rate would make INR revenue empty
+fx: rates look like USD→INR,73.65,PASS,every rate between 40 and 150
+fx: no sudden day-to-day jump,0.73,PASS,max day-to-day change under 3%
+raw: every day has data,92,PASS,expected 92 days — a missing day breaks the rolling averages
+raw: no events without a user,0,PASS,"user_pseudo_id is the key for users, funnel and traffic sources"
+raw: events without ga_session_id,0,PASS,under 1% of events
+raw: duplicate events,0,PASS,"same user + timestamp + event name, under 0.1%"
+raw: purchases without revenue,450,WARN,under 5% of purchases
+raw: purchases without transaction_id,906,WARN,"obfuscated sample can hide ids — reported, not fixed"
+mart: funnel never grows step to step,"[61252, 12545, 9715, 4419]",PASS,open funnel can break this slightly; flagged so it gets a look
+mart: INR revenue present every day,0,PASS,a gap means the FX join missed a day
+mart: KPI and INR marts cover the same days,92,PASS,92 INR rows

@@ -1,0 +1,13 @@
+source,medium,users,buyers,revenue_usd,buyer_rate_pct
+google,organic,103487,1229,95775.0,1.19
+(direct),(none),75951,1054,79650.0,1.39
+<Other>,<Other>,51037,499,35470.0,0.98
+<Other>,referral,32880,468,37000.0,1.42
+shop.googlemerchandisestore.com,referral,26065,568,46521.0,2.18
+(data deleted),(data deleted),17948,680,50064.0,3.79
+google,cpc,15527,152,9056.0,0.98
+<Other>,organic,10095,97,8232.0,0.96
+<Other>,(data deleted),393,9,397.0,2.29
+(data deleted),referral,3,0,0.0,0.0
+<Other>,cpc,1,0,0.0,0.0
+google,<Other>,1,0,0.0,0.0
