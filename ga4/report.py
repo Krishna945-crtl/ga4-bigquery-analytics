@@ -1,4 +1,5 @@
 # 📝 report.py — pipeline results nunchi README lo "Results" section rayadam
+import html
 from datetime import date
 
 import pandas as pd
@@ -8,6 +9,11 @@ START, END = "<!-- RESULTS:START -->", "<!-- RESULTS:END -->"
 
 def _int(n):
     return f"{int(n):,}"
+
+
+def _cell(x):
+    # GA4 sample lo "<Other>" lanti values untayi — escape cheyyakapothe GitHub HTML tag anukoni daachestundi
+    return html.escape(str(x), quote=False).replace("|", "\\|")
 
 
 def _pct(x):
@@ -39,7 +45,7 @@ def build(profile, marts, dq, scanned_bytes, run_day=None):
         "| Step | Users | % of viewers | % of previous step |",
         "|---|---|---|---|",
     ]
-    out += [f"| {r.step} | {_int(r.users)} | {_pct(r.pct_of_first_step)} | {_pct(r.pct_of_previous_step)} |"
+    out += [f"| {_cell(r.step)} | {_int(r.users)} | {_pct(r.pct_of_first_step)} | {_pct(r.pct_of_previous_step)} |"
             for r in funnel.itertuples()]
 
     worst = funnel.dropna(subset=["pct_of_previous_step"]).sort_values("pct_of_previous_step").head(1)
@@ -48,10 +54,10 @@ def build(profile, marts, dq, scanned_bytes, run_day=None):
         out += ["", f"Biggest drop-off: only **{w.pct_of_previous_step:.1f}%** of users move on to *{w.step}*."]
 
     out += ["", "**Top first-touch traffic sources**", "", "| Source / medium | Users | Buyer rate |", "|---|---|---|"]
-    out += [f"| {r.source} / {r.medium} | {_int(r.users)} | {_pct(r.buyer_rate_pct)} |" for r in sources.itertuples()]
+    out += [f"| {_cell(r.source)} / {_cell(r.medium)} | {_int(r.users)} | {_pct(r.buyer_rate_pct)} |" for r in sources.itertuples()]
 
     out += ["", "**Top products by revenue**", "", "| Product | Category | Units | Revenue (USD) |", "|---|---|---|---|"]
-    out += [f"| {r.product} | {r.category} | {_int(r.total_units)} | ${r.total_revenue_usd:,.0f} |"
+    out += [f"| {_cell(r.product)} | {_cell(r.category)} | {_int(r.total_units)} | ${r.total_revenue_usd:,.0f} |"
             for r in products.itertuples()]
 
     out += ["", "**Data quality checks**", "", "| Check | Value | Status |", "|---|---|---|"]
